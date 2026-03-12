@@ -1,7 +1,7 @@
 import express, { type Request, type Response } from "express"
 import { adicionarServico, apagarServico, listarServicos, obterServico } from "./servico.js"
 import { calcularOrcamento, criarPrestadoresDeServico, selecionarPrestador, selecionarServicos } from "./orcamento.js"
-import { adicionarPrestador, apagarPrestador, listarPrestadores, obterPrestadorPorNome } from "./orcamento.js"
+import { getUsers, getUsersById } from "./user.js"
 
 const app = express()
 app.use(express.json())
@@ -66,10 +66,10 @@ app.post("/selecionar-servico", (req: Request, res: Response) => {
 })
 
 // Rota para listar todos os prestadores
-app.get("/listar-prestadores", (req: Request, res: Response) => {
-  const listPrestadoresResponse = listarPrestadores()
-  res.json(listPrestadoresResponse)
-})
+// app.get("/listar-prestadores", (req: Request, res: Response) => {
+//   const listPrestadoresResponse = listarPrestadores()
+//   res.json(listPrestadoresResponse)
+// })
 
 // rota para calcular orcamento
 app.post("/calcular-orcamento", (req: Request, res: Response) => {
@@ -110,3 +110,49 @@ app.post("/selecionar-prestador", (req: Request, res: Response) => {
 app.listen(8080, () => {
   console.log("Server running on port 8080")
 })
+
+
+//selelcionar todos os utilizadores
+app.get("/get-users",async (req: Request, res: Response) => {
+  const getUsersResponse = await getUsers()
+
+  res.json(getUsersResponse)
+})
+
+app.listen(8080, () => {
+  console.log("Server running on port 8080")
+})
+
+// selecionar utilizador pelo id
+app.get("get-user-by-id", async (req: Request,res: Response)=> {
+  const {id} = req.query
+
+  if (id){
+    const getUsersByIdResponse = await getUsersById(id as string)
+
+    if(!getUsersByIdResponse){
+      res.status(404).json({
+        status:"error",
+        message:"utilizador não encontrado",
+        data:null
+      })
+    }
+
+    res.status(200).json({
+      status:"sucess",
+      message:"utilizador encontrado",
+      data:getUsersByIdResponse
+    })
+
+    //res.json(getUsersByIdResponse)
+  }else{
+    res.status(400).json({
+      status:"error",
+      message:"Id é Obrigatório",
+      data:null
+    })
+  }
+})
+
+
+

@@ -34,4 +34,15 @@ VALUES(
     true,
     NOW(),
     NOW()
+);
+
+INSERT INTO tabela_servicos
+VALUES(
+	"4b0570e1-58f4-46d9-84bb-339ae84c0cc9",
+    "servicotest1",
+    20,
+    'teste1',
+    true,
+    NOW(),
+    NOW()
 )

@@ -39,7 +39,7 @@ CREATE TABLE tbl_utilizadores(
 );
 
 CREATE TABLE tabela_servicos(
-	id VARCHAR(255) PRIMARY KEY NOT NULL,
+	id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL,
     desconto VARCHAR(255),
     categoria VARCHAR(20) NOT NULL,
@@ -82,18 +82,18 @@ CREATE TABLE IF NOT EXISTS tabela_proposta (
 	ypdated_at DATETIME
 );
 
-ALTER TABLE tabela_proposta
+ALTER TABLE tabela_proposta(
 ADD CONSTRAINT fk_prestacao_servico_proposta
 FOREIGN KEY(id_prestacao_servicos)
 REFERENCES tabela_prestacao_servico(id)
-;
-ALTER TABLE tabela_prestador_servico
+);
+
+ALTER TABLE tabela_prestador_servico(
 ADD CONSTRAINT fk_prestador_prestacao_servico
 FOREIGN KEY (id_prestador)
 REFERENCES tabela_prestadores(id),
-
 ADD CONSTRAINT fk_servico_prestacao_servico
 FOREIGN KEY (id_servico)
 REFERENCES tabela_servico(id)
-;
+);
 

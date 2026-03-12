@@ -139,30 +139,30 @@ export function editarPrestadorDeServico(nomeDoPrestador: string, novosDadosdoPr
 //funcao para obter um prestador de servico pelo nome
 
 // Função para apagar um prestador de serviço
-export function apagarPrestador(nome: string): string {
-    // Ciclo para percorrer a lista de prestadores
-    for (let i = 0; i < listarPrestadores.length; i++) {
-        const prestador = listarPrestadores[i];
-        // If para verificar se o nome do prestador for igual ao nome recebido
-        if (prestador && prestador.nome === nome) {
-            // Se encontrado remover o prestador
-            listarPrestadores.splice(i, 1);
-            // Retornar uma mensagem de sucesso
-            return `Sucesso: Prestador '${nome}' foi removido com sucesso.`;
-        }
-    }
+// export function apagarPrestador(nome: string): string {
+//     // Ciclo para percorrer a lista de prestadores
+//     for (let i = 0; i < listarPrestadores.length; i++) {
+//         const prestador = listarPrestadores[i];
+//         // If para verificar se o nome do prestador for igual ao nome recebido
+//         if (prestador && prestador.nome === nome) {
+//             // Se encontrado remover o prestador
+//             listarPrestadores.splice(i, 1);
+//             // Retornar uma mensagem de sucesso
+//             return `Sucesso: Prestador '${nome}' foi removido com sucesso.`;
+//         }
+//     }
 
-    // Se não existir nenhum prestador com o nome recebido, retorna uma mensagem
-    return `Erro: Não foi encontrado nenhum prestador com o nome '${nome}'.`;
-}
+//     // Se não existir nenhum prestador com o nome recebido, retorna uma mensagem
+//     return `Erro: Não foi encontrado nenhum prestador com o nome '${nome}'.`;
+// }
 
-// Função para obter um prestador de serviço pelo nome
-export function obterPrestadorPorNome(nome: string): PrestadorType | string {
-    for (let i = 0; i < listarPrestadores.length; i++) {
-        const prestador = listarPrestadores[i];
-        if (prestador && prestador.nome === nome) {
-            return prestador;
-        }
-    }
-    return `Erro: Prestador '${nome}' não encontrado.`;
-}
+// // Função para obter um prestador de serviço pelo nome
+// export function obterPrestadorPorNome(nome: string): PrestadorType | string {
+//     for (let i = 0; i < listarPrestadores.length; i++) {
+//         const prestador = listarPrestadores[i];
+//         if (prestador && prestador.nome === nome) {
+//             return prestador;
+//         }
+//     }
+//     return `Erro: Prestador '${nome}' não encontrado.`;
+// }
