@@ -1,7 +1,8 @@
 import express, { type Request, type Response } from "express"
 import { adicionarServico, apagarServico, listarServicos, obterServico } from "./servico.js"
 import { calcularOrcamento, criarPrestadoresDeServico, selecionarPrestador, selecionarServicos } from "./orcamento.js"
-import { getUsers, getUsersById } from "./user.js"
+import { createUser, getUsers, getUsersById } from "./user.js"
+import type { UserType } from "./utils/types.js"
 
 const app = express()
 app.use(express.json())
@@ -107,9 +108,7 @@ app.post("/selecionar-prestador", (req: Request, res: Response) => {
 
 })
 
-app.listen(8080, () => {
-  console.log("Server running on port 8080")
-})
+
 
 
 //selelcionar todos os utilizadores
@@ -119,9 +118,7 @@ app.get("/get-users",async (req: Request, res: Response) => {
   res.json(getUsersResponse)
 })
 
-app.listen(8080, () => {
-  console.log("Server running on port 8080")
-})
+
 
 // selecionar utilizador pelo id
 app.get("get-user-by-id", async (req: Request,res: Response)=> {
@@ -156,3 +153,25 @@ app.get("get-user-by-id", async (req: Request,res: Response)=> {
 
 
 
+//criar utilizador
+app.post("/create-user", async(req: Request, res: Response) =>{
+  const user: UserType = req.body
+  
+  if(!user){
+    res.status(400).json({
+      status: "error",
+      message:"Dados do utilizador Invalido",
+      data: null
+    })
+  }
+  console.log(user);
+
+  const createUserResponse = await createUser(user)
+
+  res.json(createUserResponse)
+
+}) 
+
+app.listen(8080, () => {
+  console.log("Server running on port 8080")
+})
