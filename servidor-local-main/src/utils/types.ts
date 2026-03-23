@@ -29,7 +29,6 @@ export interface PrestadorType {
     taxaUrgencia: number
 }
 
-
 export interface UserType {
     id: string,
     nome: string,
@@ -43,4 +42,14 @@ export interface UserType {
     enabled: boolean,
     created_at: string,
     updated_at: string
+}
+
+export interface ServicoDBType {
+    id: string,
+    nome: string,
+    desconto: string,
+    categoria: string,
+    enabled: boolean,
+    created_at: string,
+    update_at: string
 }

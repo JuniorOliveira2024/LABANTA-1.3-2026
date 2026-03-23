@@ -56,6 +56,3 @@ console.log(prestador1.nome) // nome do prestador, Tiago Soares
     percentagemDesconto: 0.1
     taxaUrgencia: 0.3
 */
-
-
-
