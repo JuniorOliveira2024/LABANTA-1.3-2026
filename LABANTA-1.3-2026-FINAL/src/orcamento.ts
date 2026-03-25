@@ -69,12 +69,14 @@ export function editarPrestadorDeServico(nomeDoPrestador: string, novosDadosDoPr
     prestadoresDeServico.map((prestadorExistente: PrestadorType) => {
 
         if (prestadorExistente.nome === nomeDoPrestador) {
-            prestadorExistente.nome = novosDadosDoPrestador.nome
-            prestadorExistente.precoHora = novosDadosDoPrestador.precoHora
-            prestadorExistente.profissao = novosDadosDoPrestador.profissao
-            prestadorExistente.minimoParaDesconto = novosDadosDoPrestador.minimoParaDesconto
-            prestadorExistente.percentagemDesconto = novosDadosDoPrestador.percentagemDesconto
-            prestadorExistente.taxaUrgencia = novosDadosDoPrestador.taxaUrgencia
+    prestadorExistente.nome = novosDadosDoPrestador.nome; // Esse já estava ok
+    prestadorExistente.precoHora = novosDadosDoPrestador.precoHora!;
+    prestadorExistente.profissao = novosDadosDoPrestador.profissao!;
+    prestadorExistente.minimoParaDesconto = novosDadosDoPrestador.minimoParaDesconto!;
+    prestadorExistente.percentagemDesconto = novosDadosDoPrestador.percentagemDesconto!;
+    prestadorExistente.taxaUrgencia = novosDadosDoPrestador.taxaUrgencia!;
+    
+    //
 
             return {
                 status: true,
