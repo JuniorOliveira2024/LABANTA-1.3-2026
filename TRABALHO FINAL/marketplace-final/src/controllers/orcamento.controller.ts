@@ -21,7 +21,7 @@ export const OrcamentoController = {
     },
 
     async getById(req: Request, res: Response) {
-        const { id } = req.params
+        const id = req.params.id as string
         if (!id) return res.status(400).json({ status: "error", message: "ID obrigatório", data: null })
         const result = await OrcamentoModel.getById(id)
         if (!result) return res.status(404).json({ status: "error", message: "Orçamento não encontrado", data: null })
@@ -29,7 +29,7 @@ export const OrcamentoController = {
     },
 
     async update(req: Request, res: Response) {
-        const { id } = req.params
+        const id = req.params.id as string
         const dados: OrcamentoDBType = req.body
         if (!id) return res.status(400).json({ status: "error", message: "ID obrigatório", data: null })
         if (!dados) return res.status(400).json({ status: "error", message: "Dados inválidos", data: null })
@@ -39,7 +39,7 @@ export const OrcamentoController = {
     },
 
     async delete(req: Request, res: Response) {
-        const { id } = req.params
+        const id = req.params.id as string
         if (!id) return res.status(400).json({ status: "error", message: "ID obrigatório", data: null })
         const result = await OrcamentoModel.delete(id)
         if (!result) return res.status(400).json({ status: "error", message: "Erro ao apagar orçamento", data: null })
@@ -48,7 +48,7 @@ export const OrcamentoController = {
 
     /** PUT /orcamento/:id/calcular-valor-total */
     async calcularValorTotal(req: Request, res: Response) {
-        const { id } = req.params
+        const id = req.params.id as string
         if (!id) return res.status(400).json({ status: "error", message: "ID obrigatório", data: null })
         const result = await OrcamentoModel.OrcamentoModelValorTotal(id)
         if (!result) return res.status(404).json({ status: "error", message: "Orçamento não encontrado ou sem prestações associadas", data: null })

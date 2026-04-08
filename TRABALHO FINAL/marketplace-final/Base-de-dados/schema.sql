@@ -1,10 +1,9 @@
 -- ============================================================
 --  Marketplace de Serviços — Schema Completo
---  Compatível com MySQL 8.x
 -- ============================================================
 
 CREATE DATABASE IF NOT EXISTS servidor_local
-  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE servidor_local;
 
