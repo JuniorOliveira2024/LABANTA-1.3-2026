@@ -1,0 +1,155 @@
+components:
+  schemas:
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+        nome:
+          type: string
+          example: "Ana Silva"
+        email:
+          type: string
+          example: "ana@example.com"
+        telefone:
+          type: string
+          example: "+238910001"
+        numero_utilizador:
+          type: string
+          example: "U001"
+        localidade:
+          type: string
+          example: "Praia"
+        enabled:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CreateUser:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Ana Silva"
+        numero_identificado:
+          type: string
+          example: "CC123456"
+        email:
+          type: string
+          example: "ana@example.com"
+        telefone:
+          type: string
+          example: "+238910001"
+        numero_utilizador:
+          type: string
+          example: "U001"
+        data_nascimento:
+          type: string
+          example: "15-05-1990"
+          description: "Formato dd-MM-yyyy"
+        localidade:
+          type: string
+          example: "Praia"
+        password:
+          type: string
+          example: "Senha@Segura123"
+        enabled:
+          type: boolean
+          example: true
+      required:
+        - nome
+        - email
+        - password
+
+    LoginUser:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "pg266536@gmail.com"
+        password:
+          type: string
+          example: "Pedro@123"
+      required:
+        - email
+        - password
+
+    LoginResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        message:
+          type: string
+          example: "Login realizado com sucesso"
+        data:
+          type: object
+          properties:
+            token:
+              type: string
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+            user:
+              $ref: "#/components/schemas/User"
+
+    UpdatePassword:
+      type: object
+      description: >
+        Alterar password com validação cruzada — requer a password antiga
+        que é verificada com bcrypt.compare() antes de gerar novo hash.
+      properties:
+        oldPassword:
+          type: string
+          example: "SenhaAntiga123"
+        newPassword:
+          type: string
+          example: "NovaSenha@456"
+      required:
+        - oldPassword
+        - newPassword
+
+    ResetPassword:
+      type: object
+      description: >
+        Redefinir password sem validar a antiga. Uso exclusivo para
+        admin ou fluxo de recuperação de conta.
+      properties:
+        password:
+          type: string
+          example: "NovaSenha@456"
+      required:
+        - password
+
+    ResponseSuccess:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        message:
+          type: string
+          example: "Operação realizada com sucesso"
+        data:
+          type: object
+          nullable: true
+
+    ResponseError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "error"
+        message:
+          type: string
+          example: "Erro na requisição"
+        data:
+          type: object
+          nullable: true

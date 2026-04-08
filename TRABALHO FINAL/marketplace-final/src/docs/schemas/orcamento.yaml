@@ -1,0 +1,110 @@
+components:
+  schemas:
+
+    Orcamento:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "orc-00000001-0000-0000-0000-000000000001"
+        total:
+          type: number
+          format: double
+          example: 275.50
+        id_utilizador2:
+          type: string
+          example: "4b016090-c538-4583-b6ba-37032f4ac5c1"
+        enabled:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id_utilizador2
+
+    CreateOrcamento:
+      type: object
+      properties:
+        id_utilizador2:
+          type: string
+          example: "4b016090-c538-4583-b6ba-37032f4ac5c1"
+        enabled:
+          type: boolean
+          example: true
+      required:
+        - id_utilizador2
+
+    CalcularValorTotalResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        message:
+          type: string
+          example: "Valor total calculado e gravado com sucesso"
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: "orc-00000001-0000-0000-0000-000000000001"
+            valorTotal:
+              type: number
+              example: 275.50
+            prestacoes:
+              type: integer
+              example: 2
+            detalhe:
+              type: array
+              items:
+                type: object
+                properties:
+                  id_prestacao:
+                    type: string
+                  subtotal:
+                    type: number
+                    example: 200.00
+                  desconto_aplicado:
+                    type: boolean
+                    example: false
+                  valor_desconto:
+                    type: number
+                    example: 0.00
+                  taxa_urgencia_aplicada:
+                    type: number
+                    example: 40.00
+                  total_prestacao:
+                    type: number
+                    example: 240.00
+
+    ResponseSuccess:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        message:
+          type: string
+          example: "Operação realizada com sucesso"
+        data:
+          type: object
+          nullable: true
+
+    ResponseError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "error"
+        message:
+          type: string
+          example: "Erro na requisição"
+        data:
+          type: object
+          nullable: true

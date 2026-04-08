@@ -1,0 +1,162 @@
+paths:
+
+  /proposta:
+    get:
+      summary: Listar todas as propostas
+      tags: [Proposta]
+      responses:
+        "200":
+          description: Lista de propostas
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "500":
+          description: Erro interno
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /proposta/create:
+    post:
+      summary: Criar nova proposta
+      tags: [Proposta]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProposta"
+      responses:
+        "201":
+          description: Proposta criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "400":
+          description: Campos obrigatórios em falta
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        "500":
+          description: Erro interno
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /proposta/aceitar/{id}:
+    put:
+      summary: Aceitar proposta — fluxo em cascata com transacção
+      tags: [Proposta]
+      description: >
+        Marca a proposta como "Aceitada" usando uma transacção atómica:
+        1. Rejeita automaticamente todas as propostas concorrentes (mesmo id_prestacao_servico, estado pendente).
+        2. Actualiza o estado da tbl_prestacao_servico correspondente para "enprogresso".
+        Devolve erro 404 se a proposta não existir ou já não estiver em estado pendente.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: Proposta aceite com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AceitarPropostaResponse"
+        "400":
+          description: ID em falta
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        "404":
+          description: Proposta não encontrada ou erro ao aceitar
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /proposta/{id}:
+    get:
+      summary: Buscar proposta por ID
+      tags: [Proposta]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: Proposta encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "404":
+          description: Proposta não encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+    put:
+      summary: Actualizar proposta
+      tags: [Proposta]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProposta"
+      responses:
+        "200":
+          description: Proposta actualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "400":
+          description: Erro ao actualizar
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+    delete:
+      summary: Apagar proposta
+      tags: [Proposta]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Proposta apagada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "400":
+          description: Erro ao apagar
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"

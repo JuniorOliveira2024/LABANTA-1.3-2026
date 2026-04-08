@@ -1,0 +1,103 @@
+components:
+  schemas:
+
+    Proposta:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        id_prestacao_servico:
+          type: string
+          example: "ps-00000001-0000-0000-0000-000000000001"
+        preco_hora:
+          type: number
+          example: 50.00
+        horas_estimadas:
+          type: integer
+          example: 4
+        estado:
+          type: string
+          enum: [pendente, Aceitada, Rejeitada]
+          example: "pendente"
+        enabled:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CreateProposta:
+      type: object
+      properties:
+        id_prestacao_servico:
+          type: string
+          example: "ps-00000001-0000-0000-0000-000000000001"
+        preco_hora:
+          type: number
+          example: 50.00
+        horas_estimadas:
+          type: integer
+          example: 4
+        estado:
+          type: string
+          enum: [pendente, Aceitada, Rejeitada]
+          example: "pendente"
+        enabled:
+          type: boolean
+          example: true
+      required:
+        - id_prestacao_servico
+        - preco_hora
+        - horas_estimadas
+
+    AceitarPropostaResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        message:
+          type: string
+          example: "Proposta aceite com sucesso"
+        data:
+          type: object
+          properties:
+            propostaId:
+              type: string
+              example: "1"
+            idPrestacaoServico:
+              type: string
+              example: "ps-00000001-0000-0000-0000-000000000001"
+            estado:
+              type: string
+              example: "Aceitada"
+
+    ResponseSuccess:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        message:
+          type: string
+          example: "Operação realizada com sucesso"
+        data:
+          type: object
+          nullable: true
+
+    ResponseError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "error"
+        message:
+          type: string
+          example: "Erro na requisição"
+        data:
+          type: object
+          nullable: true

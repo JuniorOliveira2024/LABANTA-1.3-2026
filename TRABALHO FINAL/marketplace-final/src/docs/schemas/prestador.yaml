@@ -1,0 +1,97 @@
+components:
+  schemas:
+
+    Prestador:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "pre-001"
+        nif:
+          type: string
+          example: "100234567"
+        profissao:
+          type: string
+          example: "Carpinteiro"
+        taxa_urgencia:
+          type: number
+          example: 0.15
+          description: "Percentagem em decimal (0.15 = 15%)"
+        minimo_desconto:
+          type: number
+          example: 500.00
+          description: "Valor mínimo do subtotal para desconto ser aplicado"
+        percentagem_desconto:
+          type: number
+          example: 0.10
+          description: "Percentagem de desconto em decimal (0.10 = 10%)"
+        disponivel:
+          type: boolean
+          example: true
+        enabled:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - nif
+        - profissao
+
+    CreatePrestador:
+      type: object
+      properties:
+        nif:
+          type: string
+          example: "100234567"
+        profissao:
+          type: string
+          example: "Carpinteiro"
+        taxa_urgencia:
+          type: number
+          example: 0.15
+        minimo_desconto:
+          type: number
+          example: 500.00
+        percentagem_desconto:
+          type: number
+          example: 0.10
+        disponivel:
+          type: boolean
+          example: true
+        enabled:
+          type: boolean
+          example: true
+      required:
+        - nif
+        - profissao
+
+    ResponseSuccess:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        message:
+          type: string
+          example: "Operação realizada com sucesso"
+        data:
+          type: object
+          nullable: true
+
+    ResponseError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "error"
+        message:
+          type: string
+          example: "Erro na requisição"
+        data:
+          type: object
+          nullable: true

@@ -1,0 +1,84 @@
+components:
+  schemas:
+
+    # Schema principal
+    PrestacaoServico:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          example: "Serviço de limpeza"
+        descricao:
+          type: string
+          example: "Serviço de limpeza profissional para residências e empresas"
+        categoria:
+          type: string
+          example: "Limpeza"
+        enabled:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          example: "2022-02-02T00:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2022-02-02T00:00:00Z"
+
+      required:
+        - id
+        - nome
+        - categoria
+        - enabled
+
+    # Schema para criação
+    CreatePrestacaoServico:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Serviço de limpeza"
+        descricao:
+          type: string
+          example: "Serviço de limpeza profissional"
+        categoria:
+          type: string
+          example: "Limpeza"
+        enabled:
+          type: boolean
+          example: true
+
+      required:
+        - nome
+        - categoria
+
+    # Resposta de sucesso
+    ResponseSuccess:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Operação realizada com sucesso"
+        status:
+          type: boolean
+          example: true
+        data:
+          type: object   # mais genérico (pode ser qualquer coisa)
+
+    # Resposta de erro
+    ResponseError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Erro na requisição"
+        status:
+          type: boolean
+          example: false
+        data:
+          type: object
+          null: true

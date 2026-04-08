@@ -1,0 +1,76 @@
+components:
+  schemas:
+
+    Servico:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "svc-001"
+        nome:
+          type: string
+          example: "Limpeza Residencial"
+        descricao:
+          type: string
+          example: "Limpeza completa de casas e apartamentos"
+        categoria:
+          type: string
+          example: "Limpeza"
+        enabled:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - nome
+        - categoria
+
+    CreateService:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Limpeza Residencial"
+        descricao:
+          type: string
+          example: "Limpeza completa de casas e apartamentos"
+        categoria:
+          type: string
+          example: "Limpeza"
+        enabled:
+          type: boolean
+          example: true
+      required:
+        - nome
+        - categoria
+
+    ResponseSuccess:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        message:
+          type: string
+          example: "Operação realizada com sucesso"
+        data:
+          type: object
+          nullable: true
+
+    ResponseError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "error"
+        message:
+          type: string
+          example: "Erro na requisição"
+        data:
+          type: object
+          nullable: true

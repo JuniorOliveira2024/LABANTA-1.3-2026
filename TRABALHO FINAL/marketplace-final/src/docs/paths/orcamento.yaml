@@ -1,0 +1,171 @@
+paths:
+
+  /orcamento:
+    get:
+      summary: Listar todos os orçamentos
+      tags: [Orcamento]
+      responses:
+        "200":
+          description: Lista de orçamentos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "500":
+          description: Erro interno
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /orcamento/create:
+    post:
+      summary: Criar um novo orçamento
+      tags: [Orcamento]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrcamento"
+      responses:
+        "201":
+          description: Orçamento criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "400":
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        "500":
+          description: Erro interno
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /orcamento/get-por-id/{id}:
+    get:
+      summary: Buscar orçamento por ID
+      tags: [Orcamento]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "orc-00000001-0000-0000-0000-000000000001"
+      responses:
+        "200":
+          description: Orçamento encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "400":
+          description: ID em falta
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        "404":
+          description: Orçamento não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /orcamento/update/{id}:
+    put:
+      summary: Actualizar orçamento
+      tags: [Orcamento]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrcamento"
+      responses:
+        "200":
+          description: Orçamento actualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "400":
+          description: Erro ao actualizar
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /orcamento/delete/{id}:
+    delete:
+      summary: Apagar orçamento
+      tags: [Orcamento]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Orçamento apagado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "400":
+          description: Erro ao apagar
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /orcamento/{id}/calcular-valor-total:
+    put:
+      summary: Calcular e gravar o total do orçamento (com regras de negócio)
+      tags: [Orcamento]
+      description: >
+        Consolida os valores de tbl_prestacao_servico ligados a este orçamento.
+        Para cada prestação: subtotal = preco_hora × horas_estimadas.
+        Se subtotal >= minimo_desconto do prestador, aplica prescentagem_desconto.
+        Sobre o valor com desconto, aplica taxa_urgencia do prestador.
+        Grava o total final em tbl_orcamentos.total e devolve o detalhe de cada prestação.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "orc-00000001-0000-0000-0000-000000000001"
+      responses:
+        "200":
+          description: Total calculado e gravado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CalcularValorTotalResponse"
+        "400":
+          description: ID em falta
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        "404":
+          description: Orçamento não encontrado ou sem prestações associadas
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
