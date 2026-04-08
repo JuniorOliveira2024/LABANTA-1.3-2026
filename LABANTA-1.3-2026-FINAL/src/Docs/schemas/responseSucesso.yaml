@@ -1,0 +1,22 @@
+components:
+  schemas:
+    responseSucesso:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          oneOf:
+            - type: boolean
+              example: true
+            - type: string
+              example: "success"
+        message:
+          type: string
+          example: "Operacao realizada com sucesso"
+        data:
+          nullable: true
+          example:
+            id: 1

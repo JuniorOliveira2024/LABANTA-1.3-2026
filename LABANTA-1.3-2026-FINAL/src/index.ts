@@ -4,15 +4,21 @@ import {router as usersRouter} from "./routes/users.route.js";
 import {router as prestadorRouter} from "./routes/prestador.route.js";
 import {router as orcamentoRouter} from "./routes/or├ºamento.route.js";
 import {router as propostaRouter} from "./routes/proposta.route.js";
+import { swaggerSpec } from "./Docs/swagger.js";
+import swaggerUi from 'swagger-ui-express';
+import dotenv from "dotenv"
+
 
 const app = express();
 app.use(express.json());
+dotenv.config()
 
 app.use("/services", serviceRouter);
 app.use("/users", usersRouter);
 app.use("/prestadores", prestadorRouter);
 app.use("/orcamentos", orcamentoRouter);
 app.use("/propostas", propostaRouter);
+app.use("/docs",swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");

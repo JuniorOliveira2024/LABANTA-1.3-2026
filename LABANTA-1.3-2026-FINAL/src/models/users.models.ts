@@ -2,8 +2,9 @@ import { get } from "node:http";
 import db from "../lib/db.js";
 import { formatDateToDDMMYYYY } from "../utils/date.js";
 import { hashPassword } from "../utils/password.js";
-import type { UserType } from "../utils/types.js";
+import type { UserType  } from "../utils/types.js";
 import { generateUUID } from "../utils/uuid.js";
+
 
 export const usersModel = {
     async create(user: UserType) {
@@ -96,6 +97,20 @@ export const usersModel = {
             return Array.isArray(rows) && rows.length > 0 ? rows[0] : null
         } catch (err) {
             console.log(err)
+            return null
+        }
+    },
+
+    async getByEmail(email: string): Promise<UserType | null>{
+        try {
+            const [rows] = await db.execute(
+                `SELECT * FROM tabela_utilizadores
+                WHERE tabela_utilizadores.email = ?`, [email]
+            )
+            if(Array.isArray(rows) && rows.length === 0) return null
+            return Array.isArray(rows) ? rows[0] as UserType : null
+        } catch (error) {
+            console.log(error)
             return null
         }
     },

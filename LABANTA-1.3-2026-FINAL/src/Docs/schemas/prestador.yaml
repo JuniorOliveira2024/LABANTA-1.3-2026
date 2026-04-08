@@ -1,0 +1,67 @@
+components:
+  schemas:
+    prestador:
+      type: object
+      required:
+        - nif
+        - profissao
+        - taxa_urgencia
+        - minimo_desconto
+        - percentagem_desconto
+        - disponivel
+        - enabled
+      properties:
+        id:
+          type: string
+          example: "550e8400-e29b-41d4-a716-446655440001"
+        nif:
+          type: integer
+          example: 123456789
+        nome:
+          type: string
+          example: "Carlos Silva"
+        precoHora:
+          type: number
+          format: float
+          example: 30
+        profissao:
+          type: string
+          example: "Eletricista"
+        minimoParaDesconto:
+          type: number
+          format: float
+          example: 8
+        percentagemDesconto:
+          type: number
+          format: float
+          example: 10
+        taxaUrgencia:
+          type: number
+          format: float
+          example: 15
+        taxa_urgencia:
+          type: number
+          format: float
+          example: 15
+        minimo_desconto:
+          type: number
+          format: float
+          example: 8
+        percentagem_desconto:
+          type: number
+          format: float
+          example: 10
+        disponivel:
+          type: boolean
+          example: true
+        enabled:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          example: "2026-03-31T10:00:00.000Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2026-03-31T10:30:00.000Z"

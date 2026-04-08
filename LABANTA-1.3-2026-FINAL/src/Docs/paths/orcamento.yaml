@@ -1,0 +1,134 @@
+# paths/orcamento.yaml
+#
+# const OrcamentoRoutes = {
+#   create: "/create",
+#   getById: "/get-by-id/:id",
+#   getAll: "/",
+#   update: "/update/:id",
+#   delete: "/delete/:id"
+# }
+
+paths:
+  /orcamentos/:
+    get:
+      tags:
+        - Orcamentos
+      summary: Lista todos os orcamentos
+      responses:
+        "200":
+          description: Lista de orcamentos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Lista de orcamentos
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/orcamento"
+        "500":
+          description: Erro ao buscar orcamentos
+
+  /orcamentos/create:
+    post:
+      tags:
+        - Orcamentos
+      summary: Cria um novo orcamento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/orcamento"
+      responses:
+        "201":
+          description: Orcamento criado com sucesso
+        "400":
+          description: ID de utilizador e total sao obrigatorios
+        "500":
+          description: Erro ao criar orcamento
+
+  /orcamentos/get-by-id/{id}:
+    get:
+      tags:
+        - Orcamentos
+      summary: Busca um orcamento pelo id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        "200":
+          description: Orcamento encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Orcamento encontrado
+                  data:
+                    $ref: "#/components/schemas/orcamento"
+        "400":
+          description: ID invalido ou nao numerico
+        "404":
+          description: Orcamento nao encontrado
+
+  /orcamentos/update/{id}:
+    put:
+      tags:
+        - Orcamentos
+      summary: Atualiza um orcamento pelo id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/orcamento"
+      responses:
+        "200":
+          description: Orcamento atualizado com sucesso
+        "400":
+          description: ID invalido ou nao numerico
+        "500":
+          description: Erro ao atualizar orcamento
+
+  /orcamentos/delete/{id}:
+    delete:
+      tags:
+        - Orcamentos
+      summary: Remove um orcamento pelo id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        "200":
+          description: Orcamento removido com sucesso
+        "400":
+          description: ID invalido ou nao numerico
+        "500":
+          description: Erro ao remover orcamento

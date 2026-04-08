@@ -1,0 +1,60 @@
+components:
+  schemas:
+    prestacaoServico:
+      type: object
+      required:
+        - designacao
+        - subtotal
+        - horas_estimadas
+        - id_prestador
+        - id_servico
+        - preco_hora
+        - estado
+        - enabled
+      properties:
+        id:
+          type: integer
+          example: 1
+        designacao:
+          type: string
+          example: "Instalacao eletrica de quadro"
+        subtotal:
+          type: number
+          format: float
+          example: 120
+        horas_estimadas:
+          type: number
+          format: float
+          example: 4
+        id_prestador:
+          type: string
+          example: "550e8400-e29b-41d4-a716-446655440001"
+        id_servico:
+          type: integer
+          example: 2
+        preco_hora:
+          type: number
+          format: float
+          example: 30
+        estado:
+          type: string
+          enum:
+            - pendente
+            - em_progresso
+            - finalizado
+            - cancelado
+          example: "pendente"
+        id_orcamento:
+          type: integer
+          example: 1
+        enabled:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          example: "2026-03-31T10:00:00.000Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2026-03-31T10:30:00.000Z"

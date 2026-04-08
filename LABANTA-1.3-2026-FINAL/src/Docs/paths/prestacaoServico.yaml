@@ -1,0 +1,130 @@
+# paths/prestacaoServico.yaml
+#
+# Documentacao da entidade prestacaoServico.
+# O projeto ainda nao possui uma route dedicada para este recurso,
+# mas os endpoints abaixo seguem o mesmo padrao adotado nas restantes entidades.
+
+paths:
+  /prestacoes-servico/:
+    get:
+      tags:
+        - PrestacoesServico
+      summary: Lista todas as prestacoes de servico
+      responses:
+        "200":
+          description: Prestacoes de servico listadas com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Lista de prestacoes de servico
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/prestacaoServico"
+        "500":
+          description: Erro ao buscar prestacoes de servico
+
+  /prestacoes-servico/create:
+    post:
+      tags:
+        - PrestacoesServico
+      summary: Cria uma nova prestacao de servico
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/prestacaoServico"
+      responses:
+        "201":
+          description: Prestacao de servico criada com sucesso
+        "400":
+          description: Dados de prestacao de servico invalidos
+        "500":
+          description: Erro ao criar prestacao de servico
+
+  /prestacoes-servico/get-by-id/{id}:
+    get:
+      tags:
+        - PrestacoesServico
+      summary: Busca uma prestacao de servico pelo id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        "200":
+          description: Prestacao de servico encontrada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Prestacao de servico encontrada
+                  data:
+                    $ref: "#/components/schemas/prestacaoServico"
+        "400":
+          description: ID invalido
+        "404":
+          description: Prestacao de servico nao encontrada
+
+  /prestacoes-servico/update/{id}:
+    put:
+      tags:
+        - PrestacoesServico
+      summary: Atualiza uma prestacao de servico pelo id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/prestacaoServico"
+      responses:
+        "200":
+          description: Prestacao de servico atualizada com sucesso
+        "400":
+          description: ID obrigatorio ou dados invalidos
+        "500":
+          description: Erro ao atualizar prestacao de servico
+
+  /prestacoes-servico/delete/{id}:
+    delete:
+      tags:
+        - PrestacoesServico
+      summary: Remove uma prestacao de servico pelo id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        "200":
+          description: Prestacao de servico removida com sucesso
+        "400":
+          description: ID invalido
+        "500":
+          description: Erro ao remover prestacao de servico

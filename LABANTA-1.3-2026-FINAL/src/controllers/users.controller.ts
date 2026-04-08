@@ -2,6 +2,8 @@ import type { Request, Response } from "express";
 import type { UserType } from "../utils/types.js";
 import { usersModel } from "../models/users.models.js";
 import { generateUUID } from "../utils/uuid.js";
+import { comparePassword } from "../utils/password.js";
+import jwt from "jsonwebtoken";
 
 export const userController = {
     async create(req: Request, res: Response) {
@@ -102,6 +104,52 @@ export const userController = {
                 data: updateUserResponse
             }
         )
+    },
+async login(req: Request, res: Response){
+        const {email, password} = req.body
+
+        if(!email || !password){
+            return res.status(404).json({
+                status: "error",
+                message: "Credenciais inválidos",
+                data: null
+            })
+        }
+
+        const userData = await usersModel.getByEmail(email as string)
+
+        if(!userData){
+            return res.status(404).json({
+                status: "error",
+                message: "não existe nehum utilizador com este email",
+                data: null
+            })
+        }
+
+        const isPasswordValid = await comparePassword(password, userData.password)
+
+        if(!isPasswordValid){
+            return res.status(401).json({
+                status: "error",
+                message: "Credenciais inválidos",
+                data: null
+            })
+        }
+
+        const payload = {
+            id: userData.id,
+            email: userData.email,
+            nome: userData.nome,
+            
+        }
+
+        const token  = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: "1h"})
+        return res.status(200).json({
+        status: "success",
+        message: "Login efetuado com sucesso",
+        data: { token }
+    });
+
     },
 
     async delete(req: Request, res: Response) {

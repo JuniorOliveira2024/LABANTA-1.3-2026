@@ -1,0 +1,43 @@
+components:
+  schemas:
+    proposta:
+      type: object
+      required:
+        - id_prestacao_servico
+        - preco_hora
+        - horas_estimadas
+        - estado
+        - enabled
+      properties:
+        id:
+          type: integer
+          example: 1
+        id_prestacao_servico:
+          type: integer
+          example: 3
+        preco_hora:
+          type: number
+          format: float
+          example: 25
+        horas_estimadas:
+          type: number
+          format: float
+          example: 4
+        estado:
+          type: string
+          enum:
+            - pendente
+            - aceito
+            - recusado
+          example: "pendente"
+        enabled:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          example: "2026-03-31T10:00:00.000Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2026-03-31T10:30:00.000Z"

@@ -1,0 +1,59 @@
+components:
+  schemas:
+    user:
+      type: object
+      required:
+        - id
+        - nome
+        - numero_identificacao
+        - data_nascimento
+        - email
+        - telefone
+        - pais
+        - localidade
+        - password
+        - enabled
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: string
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        nome:
+          type: string
+          example: "Junior Oliveira"
+        numero_identificacao:
+          type: string
+          example: "12345678AA1"
+        data_nascimento:
+          type: string
+          format: date
+          example: "1998-04-12"
+        email:
+          type: string
+          format: email
+          example: "junior@example.com"
+        telefone:
+          type: string
+          example: "+351912345678"
+        pais:
+          type: string
+          example: "Portugal"
+        localidade:
+          type: string
+          example: "Lisboa"
+        password:
+          type: string
+          format: password
+          example: "SenhaSegura123"
+        enabled:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          example: "2026-03-31T10:00:00.000Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2026-03-31T10:30:00.000Z"

@@ -1,0 +1,21 @@
+components:
+  schemas:
+    responseError:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          oneOf:
+            - type: boolean
+              example: false
+            - type: string
+              example: "error"
+        message:
+          type: string
+          example: "Ocorreu um erro ao processar a operacao"
+        data:
+          nullable: true
+          example: null
