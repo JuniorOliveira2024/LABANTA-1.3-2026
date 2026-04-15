@@ -10,7 +10,7 @@ router.post("/login",     UserController.login)
 
 // Rotas específicas com parâmetros de path compostos ANTES das genéricas /:id
 router.put("/:id/update-password", AuthMiddleware, UserController.updatePassword)
-router.put("/:id/reset-password",  UserController.resetPassword)
+router.put("/:id/reset-password",  AuthMiddleware, UserController.resetPassword)
 
 // Rotas protegidas genéricas
 router.get("/",      AuthMiddleware, UserController.getAll)

@@ -102,5 +102,37 @@ export const PrestacaoServicoModel = {
             console.log(err)
             return null
         }
+    },
+
+    async getAllPrestacoesServicoBy(categoria: string) {
+        try {
+            const [rows] = await db.execute(
+                `SELECT DISTINCT
+                    ps.id,
+                    ps.designacao,
+                    ps.subtorial,
+                    ps.horas_estimadas,
+                    ps.id_prestadores,
+                    ps.id_servico,
+                    ps.preco_hora,
+                    ps.id_orcamento,
+                    ps.estado,
+                    ps.enabled,
+                    ps.created_at,
+                    ps.updated_at,
+                    s.categoria,
+                    s.nome AS servico_nome,
+                    s.descricao AS servico_descricao
+                FROM tbl_prestacao_servico ps
+                INNER JOIN tbl_servicos s ON ps.id_servico = s.id
+                WHERE s.categoria = ?`,
+                [categoria]
+            )
+
+            return Array.isArray(rows) ? rows : []
+        } catch (err) {
+            console.log(err)
+            return null
+        }
     }
 }

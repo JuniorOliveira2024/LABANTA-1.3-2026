@@ -19,10 +19,10 @@ export interface ServicoType {
     percentagemDeconto: number
 }
 
-export interface ResponseType {
-    status: boolean,
+export interface ResponseType<T> {
+    status: "success" | "error",
     message: string,
-    data: ServicoType | null,
+    data: T | null,
 }
 
 export interface PrestadorType {

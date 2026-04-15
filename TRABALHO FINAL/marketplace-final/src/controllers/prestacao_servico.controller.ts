@@ -142,7 +142,33 @@ export const PrestacaoServicoController = {
             message: "Prestacao de servico apagada com sucesso",
             data: deletePrestacaoServicoResponse
         })
-    }
+    },
 
-    
+    async getAllPrestacoesServicoByCategoria(req: Request, res: Response) {
+        const { categoria } = req.params
+
+        if (!categoria) {
+            return res.status(400).json({
+                status: "error",
+                message: "Categoria obrigatoria",
+                data: null
+            })
+        }
+
+        const response = await PrestacaoServicoModel.getAllPrestacoesServicoBy(categoria as string)
+
+        if (response === null) {
+            return res.status(500).json({
+                status: "error",
+                message: "Erro ao buscar prestacoes de servico por categoria",
+                data: null
+            })
+        }
+
+        return res.status(200).json({
+            status: "success",
+            message: "Prestacoes de servico buscadas por categoria com sucesso",
+            data: response
+        })
+    }
 }
