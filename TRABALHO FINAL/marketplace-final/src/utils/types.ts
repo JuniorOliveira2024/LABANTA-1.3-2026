@@ -123,7 +123,7 @@ export interface UserDBType {
     password:string,
     enabled:boolean,
     created_at:string,
-    update_at:string
+    updated_at:string
 }
 
 export interface OrcamentoDBType {
@@ -161,4 +161,20 @@ export interface PrestacaoServicoDBType {
     preco_hora:number,
     created_at:string
 
+}
+
+export interface EmpresaDBType {
+    id:string,
+    nome:string,
+    descricao:string,
+    email:string,
+    telefone:string,
+    endereco:string,
+    cidade:string,
+    estado:string,
+    cep:string,
+    cnpj:string,
+    enabled:boolean,
+    created_at:string,
+    updated_at:string
 }
