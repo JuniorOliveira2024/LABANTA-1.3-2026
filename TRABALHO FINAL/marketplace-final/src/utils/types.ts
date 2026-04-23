@@ -178,3 +178,12 @@ export interface EmpresaDBType {
     created_at:string,
     updated_at:string
 }
+
+export interface CategoriaDBType {
+    id:string,
+    nome:string,
+    descricao:string,
+    enabled:boolean,
+    created_at:string,
+    updated_at:string
+}
