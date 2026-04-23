@@ -16,6 +16,9 @@ export const propostaResolver = {
         },
         updateProposta: async (_: any, args: { id: string, proposta: PropostaDBType }) => {
             return await PropostaModel.update(args.id, args.proposta);
+        },
+        deleteProposta: async (_: any, args: { id: string }) => {
+            return await PropostaModel.delete(args.id);
         }
     }
 }
