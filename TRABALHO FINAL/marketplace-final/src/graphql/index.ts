@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { typeDefs } from "./typedefs/typedefs.js";
 import { userResolver } from "./resolvers/user.resolver.js";
 import { orcamentoResolver } from "./resolvers/orcamento.resolver.js";
@@ -23,7 +24,6 @@ export const resolvers = {
         ...propostaResolver.Mutation,
         ...servicoResolver.Mutation
     }
-
 }
 
-export {typeDefs}
+export { typeDefs }

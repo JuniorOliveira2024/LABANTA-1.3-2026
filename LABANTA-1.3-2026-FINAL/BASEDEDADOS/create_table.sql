@@ -15,8 +15,46 @@ CREATE TABLE tabela_prestadores(
     updated_at DATETIME NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS `tbl_empresa` (
+	id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT UNIQUE,
+    designacao VARCHAR(255)NOT NULL,
+    descricao VARCHAR(255),
+    localizacao VARCHAR(255),
+    nif DOUBLE NOT NULL UNIQUE,
+    icone VARCHAR(255),
+    id_utilizador VARCHAR(255) NOT NULL,
+    enabled BOOLEAN NOT NULL,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL
+);
+
+CREATE TABLE `tbl_categoria`(
+id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
+designacao VARCHAR(255)NOT NULL,
+icone VARCHAR(255),
+created_at DATETIME NOT NULL,
+updated_at DATETIME NOT NULL
+);
+
+ALTER TABLE tbl_empresa
+	ADD COLUMN id_utilizadores VARCHAR(255) NOT NULL AFTER icone,
+	ADD CONSTRAINT fk_utilizador_empresas
+    FOREIGN KEY (id_utilizador)
+    References tabela_utilizadores(id)
+;
+
+ALTER TABLE tbl_servicos
+	DROP COLUMN categoria,
+    ADD COLUMN id_categoria INTEGER NOT NULL AFTER descricao,
+    ADD CONSTRAINT fk_categoria_servico
+    FOREIGN KEY (id_categoria)
+    REFERENCES tbl_categoria(id)
+    ;
+
+
 ALTER TABLE tabela_prestadores
     DROP COLUMN taxaUrgencia,
+    ADD COLUMN urgente BOOLEAN AFTER id_orcamento,
     ADD COLUMN taxa_urgencia DECIMAL(10, 3) AFTER profissao,
     DROP COLUMN minimoDesconto,
     ADD COLUMN minimo_desconto DECIMAL(10, 3) AFTER taxa_urgencia,
@@ -24,6 +62,12 @@ ALTER TABLE tabela_prestadores
     ADD COLUMN percentagem_desconto DECIMAL(10, 3) AFTER minimo_desconto,
     DROP COLUMN precoHora
 ;
+
+ALTER TABLE tbl_proposta
+	ADD CONSTRAINT fk_prestacao_servico_proposta
+    FOREIGN KEY (id_prestacao_servico)
+    REFERENCES tbl_prestador_servico(id)
+    ;
 
 CREATE TABLE tabela_utilizadores( 
 	id VARCHAR(255) PRIMARY KEY NOT NULL UNIQUE, 
