@@ -1,19 +1,27 @@
+# schema/servico.yaml
+#  id: string,
+#  nome: string,
+#  descricao: string,
+#  categoria: string,
+#  enabled: boolean,
+#  created_at: string,
+#  updated_at: string
+
 components:
   schemas:
-
+    # shema principal de servico
     Servico:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
-          example: "svc-001"
+          type: integer
+          example: 1
         nome:
           type: string
-          example: "Limpeza Residencial"
+          example: "Serviço de Limpeza"
         descricao:
           type: string
-          example: "Limpeza completa de casas e apartamentos"
+          example: "Serviço de limpeza profissional para residências e empresas."
         categoria:
           type: string
           example: "Limpeza"
@@ -22,55 +30,52 @@ components:
           example: true
         created_at:
           type: string
-          format: date-time
+          example: "2022-01-01T00:00:00.000Z"
         updated_at:
           type: string
-          format: date-time
-      required:
-        - nome
-        - categoria
+          example: "2022-01-01T00:00:00.000Z"
 
+    # schema para criar um novo servico
     CreateService:
       type: object
       properties:
         nome:
           type: string
-          example: "Limpeza Residencial"
+          example: Servico de Limpeza
         descricao:
           type: string
-          example: "Limpeza completa de casas e apartamentos"
+          example: Servico de limpeza profissional para residências e empresas.
         categoria:
           type: string
-          example: "Limpeza"
+          example: Limpeza
         enabled:
           type: boolean
           example: true
-      required:
-        - nome
-        - categoria
 
+    # schema generico para sucesso
     ResponseSuccess:
       type: object
       properties:
-        status:
-          type: string
-          example: "success"
         message:
           type: string
-          example: "Operação realizada com sucesso"
+          example: "Serviço criado com sucesso"
+        status:
+          type: boolean
+          example: true
         data:
           type: object
-          nullable: true
+          $ref: "#/components/schemas/Servico"
 
+    # schema generico de resposta de erro
     ResponseError:
       type: object
       properties:
-        status:
-          type: string
-          example: "error"
         message:
           type: string
-          example: "Erro na requisição"
+          example: "Erro ao buscar serviços"
+        status:
+          type: boolean
+          example: false
         data:
           type: object
-          nullable: true
+          properties: null

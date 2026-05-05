@@ -1,183 +1,128 @@
-export interface PedidoSevicoType {
+
+export interface PedidoServicoType {
     cliente: string;
     descricao: string;
     horasEstimadas: number;
-    urgente: boolean
-}
-
-export interface AlunosType {
-    nome: string;   
-    endereco: string;
-    contacto: string;
+    urgente: boolean;
 }
 
 export interface ServicoType {
     nome: string,
-    precoHora: number,
+    precoHora: number
+    categoria: string
+    minimoDescontado: number
+    percentagemDesconto?: number
+}
+
+export interface PrestadorType {
+    nome: string
+    precoHora: number
+    profissao: string
+    minimoParaDesconto: number
+    percentagemDesconto: number
+    taxaUrgencia: number
+}
+
+export interface UserType {
+    id: string,
+    nome: string,
+    numero_identificacao: string,
+    data_nascimento: string,
+    email: string,
+    telefone: string,
+    pais: string,
+    localidade: string,
+    password: string,
+    enabled: boolean,
+    created_at: string,
+    updated_at: string
+}
+
+export interface ServicoDBType {
+    id: string,
+    nome: string,
+    descricao: string,
     categoria: string,
-    minimoDescontado: number,
-    percentagemDeconto: number
+    enabled: boolean,
+    created_at: string,
+    updated_at: string
+}
+
+export interface PrestadorDBType {
+    id: string,
+    taxaUrgencia: number,
+    percentagemDesconto: number,
+    minimoDesconto: number,
+    nif: string,
+    profissao: string,
+    enable: boolean,
+    created_at: string,
+    updated_at: string
+}
+
+export interface OrcamentoDBType {
+    id: string,
+    total: number,
+    idUtilizadores: string,
+    enabled: boolean,
+    createdAt: string,
+    updatedAt: string
+}
+
+export enum EstadoProposta {
+    PENDENTE = "pendente",
+    ACEITE = "aceite",
+    CANCELADO = "cancelado"
+}
+
+export enum EstadoPrestacaoServico {
+    PENDENTE = "pendente",
+    FINALIZADO = "finalizado",
+    EM_PROGRESSO = "em_progresso",
+    CANCELADO = "cancelado"
+}
+
+export interface PropostaDBType {
+    id: string,
+    idPrestacaoServico: string,
+    precoHora: number,
+    horasEstimadas: number,
+    estado: EstadoProposta,
+    idPrestador: string,
+    enabled: boolean,
+    createdAt: string,
+    updatedAt: string
+}
+
+export interface PrestacaoServicoDBType {
+    id: string,
+    designacao: string,
+    subtotal: number,
+    horas_estimadas: number,
+    id_prestador: string,
+    id_servico: string,
+    preco_hora: number,
+    estado: EstadoPrestacaoServico,
+    id_orcamento: string,
+    id_utilizador: string,
+    urgente: boolean,
+    enabled: boolean,
+    created_at: string,
+    updated_at: string
+}
+
+export interface PrestacaoServicoDetalhadoType {
+    id: string,
+    nome_utilizador: string,
+    email_utilizador: string,
+    nome_servico: string,
+    descricao: string,
+    data_pedido: string,
+    urgente: boolean
 }
 
 export interface ResponseType<T> {
     status: "success" | "error",
     message: string,
-    data: T | null,
-}
-
-export interface PrestadorType {
-    nome: string;
-    precoHora: number;
-    profissao: string;
-    minimoParaDesconto: number;
-    percentagemDesconto: number;
-    taxaDesconto: number;
-}
-
-export interface UserType {
-    id: string,
-	nome:   string,
-	numero_identificado: string,
-	data_nascimento: string,
-	email: string,
-    telefone: string,
-	pais: string,
-	localidade: string,
-    password: string;
-    enabled: boolean;
-    created_at: string;
-    updated_at: string
-}
-
-export interface ServicoType {
-    id:string ,
-    nome:string ,
-    descricao:string,
-    categoria:string,
-    enabled:boolean,
-    created_at:string ,
-    update_at:string
-}
-
-export interface PrestadorType {
-    id:string ,
-    nif:number ,
-    profissao:string,
-    taxa_urgencia:number,
-    minimo_desconto:number,
-    percentagem_desconto:number,
-    disponivel:number,
-    enabled:boolean,
-    created_at:string ,
-    update_at:string
-}
-
-export interface ListaServicoType {
-    id:string ,
-    nome:string ,
-    descricao:string,
-    categoria:string,
-    enabled:boolean,
-    created_at:string ,
-    update_at:string
-}
-
-export interface ServiceDBType {
-    id:string,
-    nome:string,
-    descricao:string,
-    categoria:string,
-    enabled:boolean,
-    created_at:string,
-    update_at:string
-}
-
-export interface PrestadorDBType {
-    id:string,
-    nif:number,
-    profissao:string,
-    taxa_urgencia:number,
-    minimo_desconto:number,
-    percentagem_desconto:number,
-    disponivel:number,
-    enabled:boolean,
-    created_at:string,
-    update_at:string
-}
-
-export interface UserDBType {
-    id:string,
-    nome:string,
-    numero_identificado:string,
-    email:string,
-    telefone:string,
-    numero_utilizador:string,
-    data_nascimento:string,
-    localidade:string,
-    password:string,
-    enabled:boolean,
-    created_at:string,
-    updated_at:string
-}
-
-export interface OrcamentoDBType {
-    estado: any;
-    horas_estimadas: any;
-    preco_hora: any;
-    id_prestacao_servico: any;
-    id:string,
-    total:number,
-    id_utilizador2:string,
-    enabled:boolean,
-    created_at:string,
-    update_at:string
-}
-
-export interface PropostaDBType {
-    id:string,
-    id_prestacao_servico:string,
-    preco_hora:number,
-    horas_estimadas:number,
-    estado:string,
-    enabled:boolean,
-    created_at:string,
-    update_at:string
-}
-
-export interface PrestacaoServicoDBType {
-    id:string,
-    designacao:string,
-    subtorial:string,
-    horas_estimadas:number,
-    id_prestadores:string,
-    id_orcamento:string,
-    id_servico:string,
-    preco_hora:number,
-    created_at:string
-
-}
-
-export interface EmpresaDBType {
-    id:string,
-    nome:string,
-    descricao:string,
-    email:string,
-    telefone:string,
-    endereco:string,
-    cidade:string,
-    estado:string,
-    cep:string,
-    cnpj:string,
-    enabled:boolean,
-    created_at:string,
-    updated_at:string
-}
-
-export interface CategoriaDBType {
-    id:string,
-    nome:string,
-    descricao:string,
-    enabled:boolean,
-    created_at:string,
-    updated_at:string
+    data: T | null
 }

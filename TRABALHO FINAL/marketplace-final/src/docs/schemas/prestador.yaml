@@ -1,97 +1,90 @@
+# id: string,
+# taxa_urgencia: number,
+# percentagem_desconto: number,
+# minimo_desconto: number,
+# nif: string,
+# profissao: string,
+# enable: boolean,
+# created_at: string,
+# updated_at: string
+
 components:
   schemas:
-
     Prestador:
       type: object
       properties:
         id:
           type: string
-          format: uuid
-          example: "pre-001"
-        nif:
-          type: string
-          example: "100234567"
-        profissao:
-          type: string
-          example: "Carpinteiro"
+          example: "1"
         taxa_urgencia:
           type: number
-          example: 0.15
-          description: "Percentagem em decimal (0.15 = 15%)"
-        minimo_desconto:
-          type: number
-          example: 500.00
-          description: "Valor mínimo do subtotal para desconto ser aplicado"
+          example: 10
         percentagem_desconto:
           type: number
-          example: 0.10
-          description: "Percentagem de desconto em decimal (0.10 = 10%)"
-        disponivel:
-          type: boolean
-          example: true
-        enabled:
+          example: 10
+        minimo_desconto:
+          type: number
+          example: 10
+        nif:
+          type: string
+          example: "123456789"
+        profissao:
+          type: string
+          example: "Engenheiro"
+        enable:
           type: boolean
           example: true
         created_at:
           type: string
-          format: date-time
+          example: "2022-01-01T00:00:00.000Z"
         updated_at:
           type: string
-          format: date-time
-      required:
-        - nif
-        - profissao
+          example: "2022-01-01T00:00:00.000Z"
 
     CreatePrestador:
       type: object
       properties:
-        nif:
-          type: string
-          example: "100234567"
-        profissao:
-          type: string
-          example: "Carpinteiro"
         taxa_urgencia:
           type: number
-          example: 0.15
-        minimo_desconto:
-          type: number
-          example: 500.00
+          example: 10
         percentagem_desconto:
           type: number
-          example: 0.10
-        disponivel:
+          example: 10
+        minimo_desconto:
+          type: number
+          example: 10
+        nif:
+          type: string
+          example: "123456789"
+        profissao:
+          type: string
+          example: "Engenheiro"
+        enable:
           type: boolean
           example: true
-        enabled:
-          type: boolean
-          example: true
-      required:
-        - nif
-        - profissao
 
     ResponseSuccess:
       type: object
       properties:
-        status:
-          type: string
-          example: "success"
         message:
           type: string
-          example: "Operação realizada com sucesso"
+          example: "Prestador criado com sucesso"
+        status:
+          type: boolean
+          example: true
         data:
           type: object
-          nullable: true
+          $ref: "#/components/schemas/Prestador"
 
     ResponseError:
       type: object
       properties:
-        status:
-          type: string
-          example: "error"
         message:
           type: string
-          example: "Erro na requisição"
+          example: "Erro ao buscar prestadores"
+        status:
+          type: boolean
+          example: false
         data:
           type: object
-          nullable: true
+          properties: null

@@ -1,74 +1,74 @@
 # create: "/create",
-# getById: "/get-by-id/:id",
 # getAll: "/",
+# getById: "/get-by-id/:id",
 # update: "/update/:id",
 # delete: "/delete/:id"
 
 paths:
-  /prestador:
+  /prestacao-servico:
     get:
-      summary: Buscar todos os prestadores
+      summary: Buscar todas as prestações de serviço
       tags:
-        - Prestador
-      description: Retorna uma lista de todos os prestadores
+        - Prestação de Serviço
+      description: Retorna uma lista de todas as prestações de serviço
       responses:
         "200":
-          description: Prestadores encontrados com sucesso
+          description: Prestações de serviço encontradas com sucesso
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseSuccess"
         "400":
-          description: Dados de prestador inválidos
+          description: Dados de prestação de serviço inválidos
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
         "500":
-          description: Erro ao buscar prestadores
+          description: Erro ao buscar prestações de serviço
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
 
-  /prestador/create:
+  /prestacao-servico/create:
     post:
-      summary: Criar um novo prestador
+      summary: Criar uma nova prestação de serviço
       tags:
-        - Prestador
-      description: Cria um novo prestador
+        - Prestação de Serviço
+      description: Cria uma nova prestação de serviço
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreatePrestador"
+              $ref: "#/components/schemas/CreatePrestacaoServico"
       responses:
         "200":
-          description: Prestador criado com sucesso
+          description: Prestação de serviço criada com sucesso
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseSuccess"
         "400":
-          description: Dados de prestador inválidos
+          description: Dados de prestação de serviço inválidos
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
         "500":
-          description: Erro ao criar prestador
+          description: Erro ao criar prestação de serviço
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
 
-  /prestador/get-by-id/{id}:
+  /prestacao-servico/get-by-id/{id}:
     get:
-      summary: Buscar um prestador por ID
+      summary: Buscar uma prestação de serviço por ID
       tags:
-        - Prestador
-      description: Retorna um prestador por ID
+        - Prestação de Serviço
+      description: Retorna uma prestação de serviço por ID
       parameters:
         - name: id
           in: path
@@ -78,30 +78,32 @@ paths:
             example: "1"
       responses:
         "200":
-          description: Prestador encontrado com sucesso
+          description: Prestação de serviço encontrada com sucesso
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseSuccess"
         "400":
-          description: Dados de prestador inválidos
+          description: Dados de prestação de serviço inválidos
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
         "500":
-          description: Erro ao buscar prestador
+          description: Erro ao buscar prestação de serviço
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
 
-  /prestador/update/{id}:
+  /prestacao-servico/update/{id}:
     put:
-      summary: Atualizar um prestador
+      summary: Atualizar uma prestação de serviço
+      security:
+        - bearerAuth: []
       tags:
-        - Prestador
-      description: Atualiza um prestador
+        - Prestação de Serviço
+      description: Atualiza uma prestação de serviço
       parameters:
         - name: id
           in: path
@@ -114,33 +116,33 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreatePrestador"
+              $ref: "#/components/schemas/UpdatePrestacaoServico"
       responses:
         "200":
-          description: Prestador atualizado com sucesso
+          description: Prestação de serviço atualizada com sucesso
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseSuccess"
         "400":
-          description: Dados de prestador inválidos
+          description: Dados de prestação de serviço inválidos
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
         "500":
-          description: Erro ao atualizar prestador
+          description: Erro ao atualizar prestação de serviço
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
 
-  /prestador/delete/{id}:
+  /prestacao-servico/delete/{id}:
     delete:
-      summary: Deletar um prestador
+      summary: Deletar uma prestação de serviço
       tags:
-        - Prestador
-      description: Deleta um prestador
+        - Prestação de Serviço
+      description: Deleta uma prestação de serviço
       parameters:
         - name: id
           in: path
@@ -150,19 +152,52 @@ paths:
             example: "1"
       responses:
         "200":
-          description: Prestador deletado com sucesso
+          description: Prestação de serviço deletada com sucesso
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseSuccess"
         "400":
-          description: Dados de prestador inválidos
+          description: Dados de prestação de serviço inválidos
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
         "500":
-          description: Erro ao deletar prestador
+          description: Erro ao deletar prestação de serviço
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /prestacao-servico/get-all-detalhado:
+    get:
+      summary: Buscar todas as prestações de serviço detalhadas
+      tags:
+        - Prestação de Serviço
+      description: Retorna uma lista de todas as prestações de serviço detalhadas
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "10"
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "0"
+      responses:
+        "200":
+          description: Prestação de serviço detalhada encontrada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSuccess"
+        "500":
+          description: Erro ao buscar prestação de serviço detalhada
           content:
             application/json:
               schema:

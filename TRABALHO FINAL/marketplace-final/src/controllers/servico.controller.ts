@@ -1,11 +1,12 @@
-import { ServiceModel } from "../models/servico.modles.js"
-import type { ServiceDBType } from "../utils/types.js"
+import { ServiceModel } from "../models/servico.model.js"
+import type { ServicoDBType } from "../utils/types.js"
 import type { Request, Response } from "express"
 
 
-export const ServiceController = {
-    async CreateServico(req: Request, res: Response) {
-        const newService: ServiceDBType = req.body
+export const ServicoController = {
+
+    async createServico(req: Request, res: Response) {
+        const newService: ServicoDBType = req.body
 
         if (!newService) {
             return res.status(400).json({
@@ -16,33 +17,37 @@ export const ServiceController = {
         }
 
         const createServiceResponse = await ServiceModel.create(newService)
-        if (!createServiceResponse) {
-            return res.status(500).json({
+
+        if (createServiceResponse === null) {
+            return res.status(400).json({
                 status: "error",
                 message: "Erro ao criar servico",
                 data: null
             })
         }
-        return res.status(201).json({
+
+        return res.status(200).json({
             status: "success",
             message: "Servico criado com sucesso",
-            data: null
+            data: createServiceResponse
         })
     },
 
     async getAll(req: Request, res: Response) {
-        const getAllServiceResponse = await ServiceModel.getAll()
-        if (!getAllServiceResponse) {
+        const getAllServicesResponse = await ServiceModel.getAll()
+
+        if (!getAllServicesResponse) {
             return res.status(500).json({
                 status: "error",
-                message: "Erro ao buscar servico",
+                message: "Erro ao buscar servicos",
                 data: null
             })
         }
+
         return res.status(200).json({
             status: "success",
             message: "Servicos buscados com sucesso",
-            data: getAllServiceResponse
+            data: getAllServicesResponse
         })
     },
 
@@ -58,6 +63,7 @@ export const ServiceController = {
         }
 
         const getServiceResponse = await ServiceModel.get(id as string)
+
         if (!getServiceResponse) {
             return res.status(404).json({
                 status: "error",
@@ -65,6 +71,7 @@ export const ServiceController = {
                 data: null
             })
         }
+
         return res.status(200).json({
             status: "success",
             message: "Servico encontrado com sucesso",
@@ -75,7 +82,7 @@ export const ServiceController = {
     async update(req: Request, res: Response) {
         const { id } = req.params
 
-        const updatedServico: ServiceDBType = req.body
+        const updatedService: ServicoDBType = req.body
 
         if (!id) {
             return res.status(400).json({
@@ -85,17 +92,17 @@ export const ServiceController = {
             })
         }
 
-        if (!updatedServico) {
+        if (!updatedService) {
             return res.status(400).json({
                 status: "error",
-                message: "Dados de servicos invalidos",
+                message: "Dados de servico invalidos",
                 data: null
             })
         }
 
-        const updatedServicoResponse = await ServiceModel.update(id as string, updatedServico)
+        const updateServiceResponse = await ServiceModel.update(id as string, updatedService)
 
-        if (!updatedServicoResponse) {
+        if (!updateServiceResponse) {
             return res.status(400).json({
                 status: "error",
                 message: "Erro ao atualizar servico",
@@ -106,34 +113,35 @@ export const ServiceController = {
         return res.status(200).json({
             status: "success",
             message: "Servico atualizado com sucesso",
-            data: null
+            data: updateServiceResponse
         })
     },
 
     async delete(req: Request, res: Response) {
         const { id } = req.params
-        
-        if(!id) {
+
+        if (!id) {
             return res.status(400).json({
                 status: "error",
                 message: "ID obrigatorio",
                 data: null
             })
         }
-        
-        const deleteServicoResponse = await ServiceModel.delete(id as string)
-        if(!deleteServicoResponse) {
+
+        const deleteServiceResponse = await ServiceModel.delete(id as string)
+
+        if (!deleteServiceResponse) {
             return res.status(400).json({
                 status: "error",
                 message: "Erro ao apagar servico",
                 data: null
             })
         }
-        
+
         return res.status(200).json({
             status: "success",
             message: "Servico apagado com sucesso",
-            data: deleteServicoResponse
+            data: deleteServiceResponse
         })
     }
 }

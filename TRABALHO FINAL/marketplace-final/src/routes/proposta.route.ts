@@ -1,20 +1,23 @@
-import { Router } from "express";
-import { PropostaController } from "../controllers/proposta.controller.js";
-import AuthMiddleware from "../security/auth.middleware.js"
+
+import { Router } from "express"
+import { PropostaController } from "../controllers/proposta.controller.js"
+
+const PropostaRoute = {
+    create: "/create",
+    getAll: "/",
+    getById: "/:id",
+    update: "/update/:id",
+    delete: "/delete/:id",
+    accept: "/accept/:id"
+}
 
 const router = Router()
 
-router.post("/create", AuthMiddleware, PropostaController.create)
-
-router.get("/", AuthMiddleware, PropostaController.getAll)
-
-router.get("/:id", AuthMiddleware, PropostaController.get)
-
-// Rota especifica antes da generica /:id no PUT
-router.put("/aceitar/:id", AuthMiddleware, PropostaController.AceitarProposta)
-
-router.put("/:id", AuthMiddleware, PropostaController.update)
-
-router.delete("/:id", AuthMiddleware, PropostaController.delete)
+router.post(PropostaRoute.create, PropostaController.create)
+router.get(PropostaRoute.getAll, PropostaController.getAll)
+router.get(PropostaRoute.getById, PropostaController.get)
+router.put(PropostaRoute.update, PropostaController.update)
+router.delete(PropostaRoute.delete, PropostaController.delete)
+router.put(PropostaRoute.accept, PropostaController.accept)
 
 export { router }

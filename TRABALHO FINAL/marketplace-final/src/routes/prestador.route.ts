@@ -1,6 +1,6 @@
+
 import { Router } from "express"
 import { PrestadorController } from "../controllers/prestador.controller.js"
-import AuthMiddleware from "../security/auth.middleware.js"
 
 const PrestadorRoute = {
     create: "/create",
@@ -12,10 +12,11 @@ const PrestadorRoute = {
 
 const router = Router()
 
-router.post(PrestadorRoute.create, AuthMiddleware, PrestadorController.create)
-router.get(PrestadorRoute.getAll, AuthMiddleware, PrestadorController.getAll)
-router.get(PrestadorRoute.getById, AuthMiddleware, PrestadorController.get)
-router.put(PrestadorRoute.update, AuthMiddleware, PrestadorController.update)
-router.delete(PrestadorRoute.delete, AuthMiddleware, PrestadorController.delete)
+router.post(PrestadorRoute.create, PrestadorController.create)
+router.get(PrestadorRoute.getAll, PrestadorController.getAll)
+router.get(PrestadorRoute.getById, PrestadorController.get)
+router.put(PrestadorRoute.update, PrestadorController.update)
+router.delete(PrestadorRoute.delete, PrestadorController.delete)
 
 export { router }
+

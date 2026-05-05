@@ -1,13 +1,15 @@
 import { format } from "date-fns"
 
-export function formatDate(date: Date): string {
-    return format(date, "dd/MM/yyyy")
+export function formatDate(date: string) {
+    return format(date, "yyyy-MM-dd")
 }
 
-/**
- * Converte "dd-MM-yyyy" → "yyyy-MM-dd" para inserção no MySQL
- */
-export function formatDateDDMMYYYY(date: string): string {
+// format date string from dd-mm-yyyy to yyyy-mm-dd
+export function formatDateDDMMYYYY(date: string) {
     const [day, month, year] = date.split("-")
+
     return `${year}-${month}-${day}`
 }
+
+
+
