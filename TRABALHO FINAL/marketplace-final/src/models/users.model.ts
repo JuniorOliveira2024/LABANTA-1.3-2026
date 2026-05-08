@@ -9,8 +9,8 @@ export const UserModel = {
     async create(user: UserType) {
         try {
             const [rows] = await db.execute(
-                `INSERT INTO tbl_utilizadores 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                `INSERT INTO tabela_utilizadores 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                 [
                     generateUUID(),
                     user.nome,
@@ -35,7 +35,7 @@ export const UserModel = {
     },
 
     async getAll() {
-        const [rows] = await db.execute("SELECT * FROM tbl_utilizadores")
+        const [rows] = await db.execute("SELECT * FROM tabela_utilizadores")
 
         return rows
     },
@@ -43,8 +43,8 @@ export const UserModel = {
     async get(id: string): Promise<UserType | null> {
         try {
             const [rows] = await db.execute(
-                `SELECT * FROM tbl_utilizadores 
-                WHERE tbl_utilizadores.id = ?`,
+                `SELECT * FROM tabela_utilizadores 
+                WHERE tabela_utilizadores.id = ?`,
                 [id]
             )
 
@@ -59,8 +59,8 @@ export const UserModel = {
     async getByEmail(email: string): Promise<UserType | null> {
         try {
             const [rows] = await db.execute(
-                `SELECT * FROM tbl_utilizadores 
-                WHERE tbl_utilizadores.email = ?`,
+                `SELECT * FROM tabela_utilizadores 
+                WHERE tabela_utilizadores.email = ?`,
                 [email]
             )
 

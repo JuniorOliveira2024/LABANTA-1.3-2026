@@ -8,9 +8,14 @@ import { router as prestacaoServicoRouter } from "./routes/prestacao-servico.rou
 import { swaggerSpec } from "./docs/swagger.js"
 import swaggerUi from "swagger-ui-express"
 import dotenv from "dotenv"
+import cors from "cors"
 
 const app = express()
 app.use(express.json())
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}))
 
 dotenv.config()
 

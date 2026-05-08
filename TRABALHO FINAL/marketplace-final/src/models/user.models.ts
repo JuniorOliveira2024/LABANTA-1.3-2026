@@ -1,24 +1,23 @@
 import db from "../lib/db.js"
-import type { UserDBType, UserType } from "../utils/types.js"
+import type { UserType } from "../utils/types.js"
 import { generateUUID } from "../utils/uuid.js"
 import { hashPassword, comparePassword } from "../utils/password.js"
 import { formatDateDDMMYYYY } from "../utils/date.js"
 
 export const UserModel = {
 
-    async create(newUsers: UserDBType) {
+    async create(newUsers: UserType) {
         try {
-            const query = `INSERT INTO tbl_users
-                (id, nome, numero_indentificado, email, telefone, numero_utilizador,
+            const query = `INSERT INTO tabela_utilizadores
+                (id, nome, numero_indentificado, email, telefone,
                  data_nascimento, localidade, password, enabled, created_at, updated_at)
                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`
             const values = [
                 generateUUID(),
                 newUsers.nome,
-                newUsers.numero_identificado,
+                newUsers.numero_identificacao,
                 newUsers.email,
                 newUsers.telefone,
-                newUsers.numero_utilizador,
                 formatDateDDMMYYYY(newUsers.data_nascimento),
                 newUsers.localidade,
                 await hashPassword(newUsers.password),
@@ -76,7 +75,7 @@ export const UserModel = {
         }
     },
 
-    async update(id: string, UserAtualizado: UserDBType) {
+    async update(id: string, UserAtualizado: UserType) {
         try {
             const query = `UPDATE tbl_users
                 SET nome=?, numero_indentificado=?, email=?, telefone=?,
@@ -85,10 +84,9 @@ export const UserModel = {
                 WHERE id=?`
             const values = [
                 UserAtualizado.nome,
-                UserAtualizado.numero_identificado,
+                UserAtualizado.numero_identificacao,
                 UserAtualizado.email,
                 UserAtualizado.telefone,
-                UserAtualizado.numero_utilizador,
                 UserAtualizado.data_nascimento,
                 UserAtualizado.localidade,
                 UserAtualizado.enabled,
