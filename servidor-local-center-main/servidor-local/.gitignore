@@ -1,0 +1,15 @@
+node_modules
+package-lock.json
+<<<<<<< HEAD
+maincontext.ts
+.env
+<<<<<<< HEAD
+=======
+=======
+.env
+<<<<<<< HEAD
+.env.*
+=======
+>>>>>>> c28e2e3614e8f286824b23d44b0167534bba70b8
+>>>>>>> refs/remotes/origin/dev
+>>>>>>> 6882c7ff9db5db1972ef090b735c7803d73f7f73
